@@ -8,6 +8,7 @@ import tomllib
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_SEED_CONFIG = PROJECT_ROOT / "config" / "seeds.toml"
 
+
 def derive_seed(master_seed: int, stream_name: str) -> int:
     """
     Derive a stable 64-bit child seed from a master seed and stream name.
@@ -31,10 +32,16 @@ def derive_seed(master_seed: int, stream_name: str) -> int:
     payload = f"{master_seed}:{stream_name}".encode("utf-8")
     digest = sha256(payload).digest()
 
-    return int.from_bytes(digest[:8], byteorder="big", signed=False)
+    return int.from_bytes(
+        digest[:8],
+        byteorder="big",
+        signed=False,
+    )
 
 
-def load_seed_config(config_path: Path = DEFAULT_SEED_CONFIG) -> dict:
+def load_seed_config(
+    config_path: Path = DEFAULT_SEED_CONFIG,
+) -> dict:
     """Load the seed configuration from TOML."""
 
     with config_path.open("rb") as file:
@@ -65,4 +72,42 @@ def get_stream_seed(
             f"Unknown random stream: {stream_name}"
         )
 
-    return derive_seed(master_seed, stream_name)
+    return derive_seed(
+        master_seed,
+        stream_name,
+    )
+
+
+def get_substream_seed(
+    stream_name: str,
+    substream_name: str,
+    config_path: Path = DEFAULT_SEED_CONFIG,
+) -> int:
+    """
+    Derive a stable seed for a substream within a registered stream.
+
+    Example:
+        installations
+            -> timestamps
+            -> platform
+            -> acquisition_channel
+            -> country_code
+
+    Substreams keep separate random processes reproducible and independent.
+    """
+
+    if not isinstance(substream_name, str):
+        raise TypeError("substream_name must be a string")
+
+    if not substream_name.strip():
+        raise ValueError("substream_name must not be empty")
+
+    parent_seed = get_stream_seed(
+        stream_name,
+        config_path=config_path,
+    )
+
+    return derive_seed(
+        parent_seed,
+        substream_name,
+    )
