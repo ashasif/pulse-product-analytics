@@ -1,0 +1,79 @@
+# Pulse synthetic-data simulation configuration
+# Phase 2 configuration contract.
+#
+# Business behaviour parameters such as conversion probabilities,
+# churn probabilities and usage frequencies will be introduced
+# deliberately in later Phase 2 steps.
+
+[project]
+name = "Pulse"
+description = "Fictional AI productivity application"
+
+[simulation]
+start_date = "2024-01-01"
+end_date = "2026-06-30"
+snapshot_at = "2026-07-01T00:00:00Z"
+timezone = "UTC"
+
+[scale]
+installations_min = 100000
+installations_max = 120000
+product_events_min = 3000000
+product_events_max = 5000000
+
+[identity]
+pre_signup_has_anonymous_id = true
+pre_signup_user_id_is_null = true
+post_signup_retains_anonymous_id = true
+post_signup_has_user_id = true
+
+[subscription]
+business_model = "freemium_trial_premium"
+premium_billing_periods = [
+    "monthly",
+    "annual",
+]
+
+[features]
+names = [
+    "ai_assistant",
+    "smart_tasks",
+    "document_summarizer",
+    "focus_session",
+    "ai_notes",
+]
+
+[events]
+lifecycle = [
+    "app_install",
+    "signup",
+    "onboarding_started",
+    "onboarding_completed",
+]
+
+usage = [
+    "session_started",
+    "feature_used",
+    "paywall_viewed",
+]
+
+subscription = [
+    "trial_started",
+    "subscription_started",
+    "subscription_renewed",
+    "cancellation_requested",
+    "subscription_expired",
+    "payment_failed",
+]
+
+[entities]
+names = [
+    "installations",
+    "users",
+    "product_events",
+    "subscriptions",
+    "subscription_transactions",
+    "experiment_assignments",
+    "marketing_spend",
+    "app_releases",
+]
