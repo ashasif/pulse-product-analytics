@@ -1,19 +1,18 @@
 """Synthetic installation generation for Pulse."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from math import isclose
 from pathlib import Path
 import random
 import tomllib
 
-from src.generation.randomness import (
-    get_stream_seed,
-    get_substream_seed,
-)
+from src.generation.randomness import get_substream_seed
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_SIMULATION_CONFIG = PROJECT_ROOT / "config" / "simulation.toml"
+DEFAULT_SIMULATION_CONFIG = (
+    PROJECT_ROOT / "config" / "simulation.toml"
+)
 
 
 def load_simulation_config(
@@ -28,16 +27,7 @@ def load_simulation_config(
 def load_installation_dimensions(
     config_path: Path = DEFAULT_SIMULATION_CONFIG,
 ) -> dict:
-    """
-    Load and validate configured installation dimensions.
-
-    Each dimension must contain:
-    - at least one value
-    - one weight per value
-    - unique values
-    - non-negative weights
-    - weights summing to 1
-    """
+    """Load and validate configured installation dimensions."""
 
     config = load_simulation_config(config_path)
     dimensions = config["installation_dimensions"]
@@ -87,12 +77,70 @@ def load_installation_dimensions(
     return validated
 
 
+def load_installation_timing(
+    config_path: Path = DEFAULT_SIMULATION_CONFIG,
+) -> dict:
+    """Load and validate installation timing assumptions."""
+
+    config = load_simulation_config(config_path)
+    timing = config["installation_timing"]
+
+    growth_model = timing["growth_model"]
+
+    if growth_model != "linear":
+        raise ValueError(
+            f"Unsupported installation growth model: {growth_model}"
+        )
+
+    growth_start = timing["growth_start_multiplier"]
+    growth_end = timing["growth_end_multiplier"]
+
+    if growth_start <= 0 or growth_end <= 0:
+        raise ValueError(
+            "Growth multipliers must be greater than zero"
+        )
+
+    month_multipliers = tuple(
+        timing["month_multipliers"]
+    )
+
+    weekday_multipliers = tuple(
+        timing["weekday_multipliers"]
+    )
+
+    if len(month_multipliers) != 12:
+        raise ValueError(
+            "month_multipliers must contain 12 values"
+        )
+
+    if len(weekday_multipliers) != 7:
+        raise ValueError(
+            "weekday_multipliers must contain 7 values"
+        )
+
+    if any(value <= 0 for value in month_multipliers):
+        raise ValueError(
+            "All month multipliers must be greater than zero"
+        )
+
+    if any(value <= 0 for value in weekday_multipliers):
+        raise ValueError(
+            "All weekday multipliers must be greater than zero"
+        )
+
+    return {
+        "growth_model": growth_model,
+        "growth_start_multiplier": growth_start,
+        "growth_end_multiplier": growth_end,
+        "month_multipliers": month_multipliers,
+        "weekday_multipliers": weekday_multipliers,
+    }
+
+
 def get_simulation_bounds(
     config_path: Path = DEFAULT_SIMULATION_CONFIG,
 ) -> tuple[datetime, datetime]:
-    """
-    Return the configured simulation start and final included timestamp.
-    """
+    """Return the configured simulation timestamp boundaries."""
 
     config = load_simulation_config(config_path)
 
@@ -108,7 +156,9 @@ def get_simulation_bounds(
     snapshot_at = datetime.fromisoformat(snapshot_text)
 
     if snapshot_at.tzinfo is None:
-        snapshot_at = snapshot_at.replace(tzinfo=timezone.utc)
+        snapshot_at = snapshot_at.replace(
+            tzinfo=timezone.utc
+        )
 
     end_at = snapshot_at - timedelta(seconds=1)
 
@@ -122,25 +172,88 @@ def get_simulation_bounds(
     return start_at, end_at
 
 
+def build_daily_installation_weights(
+    start_at: datetime,
+    end_at: datetime,
+    timing: dict,
+) -> tuple[list[date], list[float]]:
+    """
+    Build relative installation intensity for every simulation day.
+
+    Daily intensity combines:
+    - long-term product growth
+    - month-of-year seasonality
+    - weekday behaviour
+    """
+
+    number_of_days = (
+        end_at.date() - start_at.date()
+    ).days + 1
+
+    days = []
+    weights = []
+
+    growth_start = timing["growth_start_multiplier"]
+    growth_end = timing["growth_end_multiplier"]
+
+    for day_index in range(number_of_days):
+        current_day = (
+            start_at.date()
+            + timedelta(days=day_index)
+        )
+
+        if number_of_days == 1:
+            growth_fraction = 0.0
+        else:
+            growth_fraction = (
+                day_index / (number_of_days - 1)
+            )
+
+        growth_multiplier = (
+            growth_start
+            + growth_fraction
+            * (growth_end - growth_start)
+        )
+
+        month_multiplier = (
+            timing["month_multipliers"][
+                current_day.month - 1
+            ]
+        )
+
+        weekday_multiplier = (
+            timing["weekday_multipliers"][
+                current_day.weekday()
+            ]
+        )
+
+        daily_weight = (
+            growth_multiplier
+            * month_multiplier
+            * weekday_multiplier
+        )
+
+        days.append(current_day)
+        weights.append(daily_weight)
+
+    return days, weights
+
+
 def generate_installations(
     count: int,
     start_at: datetime,
     end_at: datetime,
     config_path: Path = DEFAULT_SIMULATION_CONFIG,
 ) -> list[dict]:
-    """
-    Generate reproducible synthetic Pulse installations.
-
-    The timestamp sequence preserves the already validated installation
-    random stream. New installation dimensions use independent substreams,
-    so adding or changing one dimension does not disturb the others.
-    """
+    """Generate reproducible synthetic Pulse installations."""
 
     if not isinstance(count, int):
         raise TypeError("count must be an integer")
 
     if count <= 0:
-        raise ValueError("count must be greater than zero")
+        raise ValueError(
+            "count must be greater than zero"
+        )
 
     if start_at.tzinfo is None or end_at.tzinfo is None:
         raise ValueError(
@@ -152,16 +265,30 @@ def generate_installations(
             "start_at must be earlier than end_at"
         )
 
-    dimensions = load_installation_dimensions(config_path)
+    dimensions = load_installation_dimensions(
+        config_path
+    )
+
+    timing = load_installation_timing(
+        config_path
+    )
 
     platform = dimensions["platform"]
     acquisition = dimensions["acquisition_channel"]
     country = dimensions["country_code"]
 
-    # Keep the original installation stream for timestamps so the
-    # previously validated timestamp sequence remains unchanged.
-    timestamp_rng = random.Random(
-        get_stream_seed("installations")
+    day_rng = random.Random(
+        get_substream_seed(
+            "installations",
+            "install_day",
+        )
+    )
+
+    time_rng = random.Random(
+        get_substream_seed(
+            "installations",
+            "install_time",
+        )
     )
 
     platform_rng = random.Random(
@@ -185,19 +312,60 @@ def generate_installations(
         )
     )
 
-    simulation_seconds = int(
-        (end_at - start_at).total_seconds()
+    days, daily_weights = (
+        build_daily_installation_weights(
+            start_at,
+            end_at,
+            timing,
+        )
+    )
+
+    selected_days = day_rng.choices(
+        days,
+        weights=daily_weights,
+        k=count,
     )
 
     installations = []
 
-    for index in range(1, count + 1):
-        seconds_from_start = timestamp_rng.randrange(
-            simulation_seconds + 1
+    for index, selected_day in enumerate(
+        selected_days,
+        start=1,
+    ):
+        day_start = datetime(
+            selected_day.year,
+            selected_day.month,
+            selected_day.day,
+            tzinfo=timezone.utc,
         )
 
-        installed_at = start_at + timedelta(
-            seconds=seconds_from_start
+        lower_bound = max(
+            day_start,
+            start_at,
+        )
+
+        upper_bound = min(
+            day_start
+            + timedelta(days=1)
+            - timedelta(seconds=1),
+            end_at,
+        )
+
+        seconds_available = int(
+            (
+                upper_bound - lower_bound
+            ).total_seconds()
+        )
+
+        seconds_from_day_start = time_rng.randrange(
+            seconds_available + 1
+        )
+
+        installed_at = (
+            lower_bound
+            + timedelta(
+                seconds=seconds_from_day_start
+            )
         )
 
         platform_value = platform_rng.choices(
@@ -220,11 +388,17 @@ def generate_installations(
 
         installations.append(
             {
-                "installation_id": f"inst_{index:08d}",
-                "anonymous_id": f"anon_{index:08d}",
+                "installation_id": (
+                    f"inst_{index:08d}"
+                ),
+                "anonymous_id": (
+                    f"anon_{index:08d}"
+                ),
                 "installed_at": installed_at,
                 "platform": platform_value,
-                "acquisition_channel": acquisition_value,
+                "acquisition_channel": (
+                    acquisition_value
+                ),
                 "country_code": country_value,
             }
         )

@@ -127,3 +127,40 @@ weights = [
     0.03,
     0.05,
 ]
+
+[installation_timing]
+
+# Relative installation demand grows over the simulation period.
+growth_model = "linear"
+growth_start_multiplier = 1.0
+growth_end_multiplier = 2.4
+
+# January -> December.
+#
+# These are relative intensity multipliers, not probabilities,
+# so they do not need to sum to 1.
+month_multipliers = [
+    1.18,
+    0.98,
+    1.00,
+    1.01,
+    1.00,
+    0.97,
+    0.93,
+    0.95,
+    1.08,
+    1.05,
+    1.00,
+    0.88,
+]
+
+# Monday -> Sunday.
+weekday_multipliers = [
+    1.08,
+    1.07,
+    1.06,
+    1.05,
+    1.00,
+    0.82,
+    0.78,
+]
