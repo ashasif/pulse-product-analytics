@@ -1,13 +1,13 @@
 # Pulse synthetic-data simulation configuration
 # Phase 2 configuration contract.
 #
-# Business behaviour parameters such as conversion probabilities,
-# churn probabilities and usage frequencies will be introduced
-# deliberately in later Phase 2 steps.
+# Synthetic behaviour parameters are introduced deliberately
+# as each Phase 2 lifecycle component is implemented.
 
 [project]
 name = "Pulse"
 description = "Fictional AI productivity application"
+
 
 [simulation]
 start_date = "2024-01-01"
@@ -15,11 +15,13 @@ end_date = "2026-06-30"
 snapshot_at = "2026-07-01T00:00:00Z"
 timezone = "UTC"
 
+
 [scale]
 installations_min = 100000
 installations_max = 120000
 product_events_min = 3000000
 product_events_max = 5000000
+
 
 [identity]
 pre_signup_has_anonymous_id = true
@@ -27,12 +29,14 @@ pre_signup_user_id_is_null = true
 post_signup_retains_anonymous_id = true
 post_signup_has_user_id = true
 
+
 [subscription]
 business_model = "freemium_trial_premium"
 premium_billing_periods = [
     "monthly",
     "annual",
 ]
+
 
 [features]
 names = [
@@ -42,6 +46,7 @@ names = [
     "focus_session",
     "ai_notes",
 ]
+
 
 [events]
 lifecycle = [
@@ -66,6 +71,7 @@ subscription = [
     "payment_failed",
 ]
 
+
 [entities]
 names = [
     "installations",
@@ -78,6 +84,11 @@ names = [
     "app_releases",
 ]
 
+
+# ---------------------------------------------------------------------------
+# Installation dimensions
+# ---------------------------------------------------------------------------
+
 [installation_dimensions.platform]
 values = [
     "ios",
@@ -87,6 +98,7 @@ weights = [
     0.47,
     0.53,
 ]
+
 
 [installation_dimensions.acquisition_channel]
 values = [
@@ -103,6 +115,7 @@ weights = [
     0.12,
     0.08,
 ]
+
 
 [installation_dimensions.country_code]
 values = [
@@ -127,6 +140,11 @@ weights = [
     0.03,
     0.05,
 ]
+
+
+# ---------------------------------------------------------------------------
+# Installation timing
+# ---------------------------------------------------------------------------
 
 [installation_timing]
 
@@ -163,4 +181,161 @@ weekday_multipliers = [
     1.00,
     0.82,
     0.78,
+]
+
+
+# ---------------------------------------------------------------------------
+# Registered-user and onboarding lifecycle
+# ---------------------------------------------------------------------------
+#
+# These are fictional modelling assumptions for Pulse.
+#
+# Approximate base funnel:
+#
+# 100 installations
+#     -> ~62 signups
+#     -> ~55 onboarding starts
+#     -> ~43 onboarding completions
+#
+# Signup probability is conditional on installation.
+# Onboarding-start probability is conditional on signup.
+# Onboarding-completion probability is conditional on onboarding having
+# started.
+#
+# 0.89 * 0.775 ~= 0.69
+#
+# Therefore approximately 69% of registered users should ultimately
+# complete onboarding before accounting for snapshot censoring and
+# dimension-level variation.
+
+[user_lifecycle]
+signup_probability = 0.62
+onboarding_start_given_signup_probability = 0.89
+onboarding_complete_given_start_probability = 0.775
+
+
+# ---------------------------------------------------------------------------
+# Signup probability adjustments
+# ---------------------------------------------------------------------------
+#
+# These are additive adjustments to the base signup probability.
+#
+# Example:
+# referral signup probability = 0.62 + 0.07 = 0.69
+#
+# The differences are intentionally modest. Their purpose is to create
+# relationships that later product analytics can discover rather than
+# make outcomes deterministic.
+
+[user_lifecycle.signup_probability_adjustments.acquisition_channel]
+organic = 0.01
+paid_social = -0.05
+paid_search = 0.01
+referral = 0.07
+content = 0.03
+
+
+[user_lifecycle.signup_probability_adjustments.platform]
+ios = 0.01
+android = -0.01
+
+
+# ---------------------------------------------------------------------------
+# Onboarding-start probability adjustments
+# ---------------------------------------------------------------------------
+
+[user_lifecycle.onboarding_start_probability_adjustments.platform]
+ios = 0.015
+android = -0.015
+
+
+# ---------------------------------------------------------------------------
+# Onboarding-completion probability adjustments
+# ---------------------------------------------------------------------------
+
+[user_lifecycle.onboarding_complete_probability_adjustments.acquisition_channel]
+organic = 0.01
+paid_social = -0.03
+paid_search = 0.00
+referral = 0.03
+content = 0.02
+
+
+[user_lifecycle.onboarding_complete_probability_adjustments.platform]
+ios = 0.03
+android = -0.025
+
+
+# ---------------------------------------------------------------------------
+# Signup delay distribution
+# ---------------------------------------------------------------------------
+#
+# Delay values are whole minutes.
+#
+# First the generator selects one of these ranges using its weight.
+# It then samples a delay uniformly from inside the selected range.
+#
+# Most users who register do so shortly after installation, while a
+# smaller proportion return hours, days or weeks later.
+
+[user_lifecycle.signup_delay_minutes]
+ranges = [
+    [1, 15],
+    [16, 180],
+    [181, 1440],
+    [1441, 10080],
+    [10081, 43200],
+]
+weights = [
+    0.55,
+    0.18,
+    0.12,
+    0.10,
+    0.05,
+]
+
+
+# ---------------------------------------------------------------------------
+# Onboarding-start delay distribution
+# ---------------------------------------------------------------------------
+#
+# Most registered users who start onboarding begin immediately or
+# shortly after signup. A smaller group returns later.
+
+[user_lifecycle.onboarding_start_delay_minutes]
+ranges = [
+    [0, 5],
+    [6, 60],
+    [61, 1440],
+    [1441, 4320],
+]
+weights = [
+    0.72,
+    0.18,
+    0.08,
+    0.02,
+]
+
+
+# ---------------------------------------------------------------------------
+# Onboarding-completion delay distribution
+# ---------------------------------------------------------------------------
+#
+# Completion is measured from onboarding_started_at.
+#
+# Most successful users complete onboarding within two hours, while a
+# smaller long-tail group finishes later.
+
+[user_lifecycle.onboarding_complete_delay_minutes]
+ranges = [
+    [2, 10],
+    [11, 30],
+    [31, 120],
+    [121, 1440],
+]
+weights = [
+    0.30,
+    0.40,
+    0.22,
+    0.08,
 ]
