@@ -1,0 +1,21 @@
+# Pulse synthetic-data random seed configuration
+#
+# One master seed is used to derive stable, independent child seeds
+# for different parts of the simulation.
+#
+# The numerical value itself has no business meaning.
+# It exists only to make simulation runs reproducible.
+
+[random]
+master_seed = 20260701
+derivation_method = "sha256"
+
+[streams]
+names = [
+    "installations",
+    "users",
+    "product_events",
+    "subscriptions",
+    "experiments",
+    "corruption",
+]
