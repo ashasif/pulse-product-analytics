@@ -339,3 +339,147 @@ weights = [
     0.22,
     0.08,
 ]
+
+# ---------------------------------------------------------------------------
+# Phase 2 - Step 5: Product event behaviour
+# ---------------------------------------------------------------------------
+
+[product_events]
+
+# Initial app activity normally begins within a few seconds/minutes
+# of installation.
+first_session_delay_seconds_min = 5
+first_session_delay_seconds_max = 180
+
+# Return sessions are intentionally concentrated earlier in the user's
+# active lifetime rather than being uniformly distributed.
+activity_time_alpha = 0.75
+activity_time_beta = 1.60
+
+# Users installed close to the snapshot have had less time to accumulate
+# activity. This controls how strongly session counts are reduced for
+# immature cohorts.
+maturity_exponent = 0.65
+
+# Prevent separate return sessions from appearing unrealistically close
+# together.
+minimum_return_gap_minutes = 30
+
+# Within-session behaviour.
+feature_gap_seconds_min = 20
+feature_gap_seconds_max = 150
+
+# Paywalls appear after some interaction rather than immediately.
+paywall_delay_seconds_min = 60
+paywall_delay_seconds_max = 600
+
+
+# ---------------------------------------------------------------------------
+# Anonymous installations that never register
+# ---------------------------------------------------------------------------
+
+[product_events.anonymous]
+
+session_counts = [1, 2, 3, 4]
+session_count_weights = [0.58, 0.28, 0.10, 0.04]
+
+retention_days_max = 7
+
+feature_counts = [1, 2]
+feature_count_weights = [0.75, 0.25]
+
+paywall_probability_per_session = 0.02
+
+
+# ---------------------------------------------------------------------------
+# Engagement-tier assignment
+#
+# Completing onboarding is associated with stronger future engagement.
+# These are simulation assumptions, not causal claims.
+# ---------------------------------------------------------------------------
+
+[product_events.engagement_weights.onboarding_completed]
+
+casual = 0.38
+regular = 0.45
+power = 0.17
+
+
+[product_events.engagement_weights.onboarding_incomplete]
+
+casual = 0.68
+regular = 0.27
+power = 0.05
+
+
+# ---------------------------------------------------------------------------
+# Casual registered users
+# ---------------------------------------------------------------------------
+
+[product_events.engagement.casual]
+
+session_count_mean = 4.5
+session_count_std = 1.5
+session_count_max = 10
+
+retention_days_median = 21
+retention_days_sigma = 0.55
+
+features_per_session_mean = 1.7
+features_per_session_std = 0.8
+features_per_session_max = 5
+
+paywall_probability_per_session = 0.04
+
+
+# ---------------------------------------------------------------------------
+# Regular registered users
+# ---------------------------------------------------------------------------
+
+[product_events.engagement.regular]
+
+session_count_mean = 16
+session_count_std = 5
+session_count_max = 32
+
+retention_days_median = 150
+retention_days_sigma = 0.65
+
+features_per_session_mean = 2.5
+features_per_session_std = 1.0
+features_per_session_max = 7
+
+paywall_probability_per_session = 0.07
+
+
+# ---------------------------------------------------------------------------
+# Power users
+# ---------------------------------------------------------------------------
+
+[product_events.engagement.power]
+
+session_count_mean = 50
+session_count_std = 15
+session_count_max = 90
+
+retention_days_median = 480
+retention_days_sigma = 0.70
+
+features_per_session_mean = 3.8
+features_per_session_std = 1.4
+features_per_session_max = 10
+
+paywall_probability_per_session = 0.11
+
+
+# ---------------------------------------------------------------------------
+# Product feature mix
+# ---------------------------------------------------------------------------
+
+[product_events.feature_mix]
+
+ai_assistant = 0.32
+smart_tasks = 0.24
+document_summarizer = 0.16
+focus_session = 0.13
+ai_notes = 0.15
