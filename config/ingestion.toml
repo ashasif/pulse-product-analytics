@@ -1,0 +1,161 @@
+# Pulse Phase 3 ingestion contract.
+#
+# This contract describes the formally approved Phase 2 raw CSV snapshot.
+# Phase 3 must validate source files against this contract rather than
+# inferring schemas dynamically from whatever files happen to be present.
+
+[ingestion]
+source_dir = "data/raw"
+quarantine_dir = "data/quarantine"
+encoding = "utf-8"
+delimiter = ","
+reject_unexpected_csv_files = true
+
+
+[datasets.installations]
+filename = "installations.csv"
+expected_rows = 100000
+columns = [
+    "installation_id",
+    "anonymous_id",
+    "installed_at",
+    "platform",
+    "acquisition_channel",
+    "country_code",
+]
+
+
+[datasets.users]
+filename = "users.csv"
+expected_rows = 62176
+columns = [
+    "user_id",
+    "installation_id",
+    "anonymous_id",
+    "signed_up_at",
+    "onboarding_started_at",
+    "onboarding_completed_at",
+]
+
+
+[datasets.product_events]
+filename = "product_events.csv"
+expected_rows = 3502815
+columns = [
+    "event_id",
+    "event_name",
+    "occurred_at",
+    "installation_id",
+    "anonymous_id",
+    "user_id",
+    "session_id",
+    "feature_name",
+]
+
+
+[datasets.subscriptions]
+filename = "subscriptions.csv"
+expected_rows = 8663
+columns = [
+    "subscription_id",
+    "user_id",
+    "installation_id",
+    "billing_period",
+    "price_gbp",
+    "currency",
+    "status",
+    "trial_started_at",
+    "trial_ends_at",
+    "subscription_started_at",
+    "current_period_start_at",
+    "current_period_end_at",
+    "cancellation_requested_at",
+    "expired_at",
+    "auto_renew",
+    "end_reason",
+]
+
+
+[datasets.subscription_transactions]
+filename = "subscription_transactions.csv"
+expected_rows = 9350
+columns = [
+    "transaction_id",
+    "subscription_id",
+    "user_id",
+    "installation_id",
+    "transaction_type",
+    "attempted_at",
+    "billing_period",
+    "amount_gbp",
+    "currency",
+    "payment_status",
+    "billing_cycle_number",
+    "attempt_number",
+]
+
+
+[datasets.experiment_assignments]
+filename = "experiment_assignments.csv"
+expected_rows = 20006
+columns = [
+    "assignment_id",
+    "experiment_id",
+    "experiment_name",
+    "user_id",
+    "installation_id",
+    "randomization_unit",
+    "variant",
+    "allocation_probability",
+    "assignment_at",
+    "exposed_at",
+    "experiment_start_at",
+    "experiment_end_at",
+    "eligibility_rule",
+    "assignment_trigger",
+    "exposure_trigger",
+    "hypothesis",
+    "primary_metric",
+    "secondary_metric",
+    "commercial_metric",
+    "guardrail_metric",
+    "analysis_window_days",
+]
+
+
+[datasets.marketing_spend]
+filename = "marketing_spend.csv"
+expected_rows = 655
+columns = [
+    "marketing_spend_id",
+    "period_start",
+    "period_end",
+    "acquisition_channel",
+    "spend_type",
+    "campaign_type",
+    "spend",
+    "currency",
+    "impressions",
+    "clicks",
+]
+
+
+[datasets.app_releases]
+filename = "app_releases.csv"
+expected_rows = 16
+columns = [
+    "app_release_id",
+    "release_key",
+    "release_name",
+    "release_sequence",
+    "platform",
+    "version",
+    "release_at",
+    "release_type",
+    "feature_area",
+    "rollout_strategy",
+    "rollout_days",
+    "rollout_complete_at",
+    "release_channel",
+    "release_notes",
+]
