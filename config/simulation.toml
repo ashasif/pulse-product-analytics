@@ -558,3 +558,128 @@ failure_probability = 0.035
 retry_delay_days = 3
 retry_recovery_probability = 0.70
 currency = "GBP"
+
+# ---------------------------------------------------------------------------
+# Product experiments
+# ---------------------------------------------------------------------------
+#
+# Experiment assignments are generated independently of downstream outcomes.
+#
+# Grain:
+#   one row per user per experiment
+#
+# assignment_at:
+#   timestamp when the user enters randomisation
+#
+# exposed_at:
+#   timestamp when the assigned experience is actually encountered
+#
+# Existing lifecycle, usage and subscription timestamps are never rewritten
+# by experiment generation.
+#
+# Experiment periods deliberately do not overlap in v1. This reduces
+# cross-experiment contamination and makes later A/B analysis easier to
+# interpret.
+
+[experiments]
+
+# ---------------------------------------------------------------------------
+# Experiment 1 — Paywall Redesign
+# ---------------------------------------------------------------------------
+
+[[experiments.definitions]]
+experiment_id = "exp_paywall_redesign_2024q3"
+experiment_name = "Paywall Redesign Experiment"
+
+start_at = "2024-07-01T00:00:00Z"
+end_at = "2024-10-01T00:00:00Z"
+
+randomization_unit = "user"
+
+# User becomes eligible when they encounter a registered-user paywall during
+# the experiment window.
+eligibility_rule = "paywall_viewers"
+
+assignment_trigger = "paywall_viewed"
+exposure_trigger = "paywall_viewed"
+
+variants = ["control", "treatment"]
+allocation = [0.50, 0.50]
+
+hypothesis = "A redesigned paywall may improve trial-start conversion without materially worsening downstream subscription quality."
+
+primary_metric = "trial_start_conversion_7d"
+secondary_metric = "paid_conversion_14d"
+commercial_metric = "revenue_per_assigned_user_30d"
+guardrail_metric = "cancellation_or_expiry_30d"
+
+analysis_window_days = 30
+
+
+# ---------------------------------------------------------------------------
+# Experiment 2 — Onboarding Guidance
+# ---------------------------------------------------------------------------
+
+[[experiments.definitions]]
+experiment_id = "exp_onboarding_guidance_2025q1"
+experiment_name = "Onboarding Guidance Experiment"
+
+start_at = "2025-02-01T00:00:00Z"
+end_at = "2025-05-01T00:00:00Z"
+
+randomization_unit = "user"
+
+# All users signing up during the experiment are randomised. They only become
+# exposed if they subsequently start onboarding.
+eligibility_rule = "new_signups"
+
+assignment_trigger = "signup"
+exposure_trigger = "onboarding_started"
+
+variants = ["control", "treatment"]
+allocation = [0.50, 0.50]
+
+hypothesis = "Additional onboarding guidance may increase onboarding completion and early activation."
+
+primary_metric = "onboarding_completion_48h"
+secondary_metric = "activation_48h"
+commercial_metric = "trial_start_conversion_14d"
+guardrail_metric = "d7_return_rate"
+
+analysis_window_days = 14
+
+
+# ---------------------------------------------------------------------------
+# Experiment 3 — AI Assistant Discovery
+# ---------------------------------------------------------------------------
+
+[[experiments.definitions]]
+experiment_id = "exp_ai_discovery_2025q4"
+experiment_name = "AI Assistant Discovery Experiment"
+
+start_at = "2025-10-01T00:00:00Z"
+end_at = "2026-01-01T00:00:00Z"
+
+randomization_unit = "user"
+
+# Users must already have completed onboarding and subsequently begin a
+# registered session during the experiment window.
+eligibility_rule = "onboarded_session_users"
+
+assignment_trigger = "session_started"
+exposure_trigger = "session_started"
+
+variants = ["control", "treatment"]
+
+# A modestly treatment-heavy rollout is realistic for a lower-risk discovery
+# change while retaining a substantial control group.
+allocation = [0.40, 0.60]
+
+hypothesis = "Improved AI Assistant discovery may increase use of the AI Assistant and subsequent engagement."
+
+primary_metric = "ai_assistant_use_7d"
+secondary_metric = "return_session_7d"
+commercial_metric = "trial_start_conversion_14d"
+guardrail_metric = "overall_feature_use_7d"
+
+analysis_window_days = 14
