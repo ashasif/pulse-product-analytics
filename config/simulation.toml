@@ -483,3 +483,78 @@ smart_tasks = 0.24
 document_summarizer = 0.16
 focus_session = 0.13
 ai_notes = 0.15
+
+# ---------------------------------------------------------------------------
+# Subscription and monetisation lifecycle
+# ---------------------------------------------------------------------------
+
+[subscription_lifecycle]
+trial_length_days = 7
+trial_start_delay_seconds_min = 30
+trial_start_delay_seconds_max = 600
+
+trial_start_probability_per_paywall = 0.07
+trial_onboarding_completed_adjustment = 0.03
+trial_session_adjustment_per_session = 0.012
+trial_session_adjustment_cap = 0.08
+trial_feature_adjustment_per_feature = 0.002
+trial_feature_adjustment_cap = 0.06
+trial_probability_cap = 0.45
+
+
+[subscription_lifecycle.plan_mix]
+monthly = 0.78
+annual = 0.22
+
+
+[subscription_lifecycle.pricing_gbp]
+monthly = 11.99
+annual = 99.99
+
+
+[subscription_lifecycle.billing_period_days]
+monthly = 30
+annual = 365
+
+
+[subscription_lifecycle.paid_conversion]
+base_probability = 0.29
+onboarding_completed_adjustment = 0.04
+session_adjustment_per_session = 0.025
+session_adjustment_cap = 0.15
+feature_adjustment_per_feature = 0.004
+feature_adjustment_cap = 0.15
+probability_cap = 0.80
+
+
+[subscription_lifecycle.cancellation_probability]
+inactive_penalty = 0.10
+session_discount_per_session = 0.008
+session_discount_cap = 0.04
+minimum_probability = 0.01
+maximum_probability = 0.85
+monthly_lookback_days = 30
+annual_lookback_days = 90
+lead_days_min = 1
+lead_days_max = 14
+
+
+[subscription_lifecycle.cancellation_probability.monthly]
+first_renewal = 0.40
+second_renewal = 0.28
+third_renewal = 0.20
+later_renewal = 0.14
+
+
+[subscription_lifecycle.cancellation_probability.annual]
+first_renewal = 0.64
+second_renewal = 0.44
+third_renewal = 0.34
+later_renewal = 0.29
+
+
+[subscription_lifecycle.payment]
+failure_probability = 0.035
+retry_delay_days = 3
+retry_recovery_probability = 0.70
+currency = "GBP"
