@@ -683,3 +683,150 @@ commercial_metric = "trial_start_conversion_14d"
 guardrail_metric = "overall_feature_use_7d"
 
 analysis_window_days = 14
+
+# ---------------------------------------------------------------------------
+# Phase 2 - Step 8: Marketing spend
+# ---------------------------------------------------------------------------
+#
+# Grain:
+#   one row per simulation week per acquisition channel
+#
+# Marketing investment is generated independently from realised installations.
+# It shares broad growth and seasonal direction with acquisition demand, but
+# uses separate parameters and random streams so spend is not reverse-engineered
+# from future installation counts.
+#
+# The optional budget_scale argument on the generator is a dataset-size
+# normalisation factor. It lets the same economics be preserved when the final
+# synthetic population is scaled beyond the 20,000-install validation run.
+
+[marketing_spend]
+grain = "weekly"
+currency = "GBP"
+
+growth_model = "linear"
+growth_start_multiplier = 1.00
+growth_end_multiplier = 2.05
+
+# Small week-to-week budget variation.
+weekly_noise_sigma = 0.08
+
+# January -> December.
+#
+# These deliberately resemble, but do not exactly copy, installation
+# seasonality. Marketing should have related business timing without being
+# mechanically derived from installation volumes.
+month_multipliers = [
+    1.16,
+    0.99,
+    1.01,
+    1.00,
+    1.02,
+    0.97,
+    0.91,
+    0.93,
+    1.10,
+    1.12,
+    1.07,
+    0.89,
+]
+
+
+# ---------------------------------------------------------------------------
+# Paid campaign variation
+# ---------------------------------------------------------------------------
+
+[marketing_spend.campaigns]
+
+# January plus the stronger Sep-Nov commercial period.
+peak_months = [1, 9, 10, 11]
+
+# Probability that a week receives an additional coordinated paid-media push.
+base_probability = 0.10
+peak_probability = 0.32
+
+# Campaign weeks receive an additional temporary budget uplift.
+multiplier_min = 1.12
+multiplier_max = 1.40
+
+
+# ---------------------------------------------------------------------------
+# Organic
+# ---------------------------------------------------------------------------
+#
+# Organic has zero direct acquisition spend.
+#
+# This does not mean the business has zero product or brand cost. It means
+# those costs are not allocated as direct channel acquisition spend.
+
+[marketing_spend.channels.organic]
+
+spend_type = "zero_direct"
+base_weekly_spend_gbp = 0.00
+campaign_type = "organic_unpaid"
+
+
+# ---------------------------------------------------------------------------
+# Paid social
+# ---------------------------------------------------------------------------
+#
+# Direct media channel. Therefore impressions and clicks are generated.
+#
+# CPC and CTR ranges are fictional Pulse modelling assumptions.
+
+[marketing_spend.channels.paid_social]
+
+spend_type = "paid_media"
+base_weekly_spend_gbp = 220.00
+campaign_type = "always_on_social"
+
+cpc_gbp_min = 0.65
+cpc_gbp_max = 1.10
+
+ctr_min = 0.008
+ctr_max = 0.018
+
+
+# ---------------------------------------------------------------------------
+# Paid search
+# ---------------------------------------------------------------------------
+
+[marketing_spend.channels.paid_search]
+
+spend_type = "paid_media"
+base_weekly_spend_gbp = 260.00
+campaign_type = "always_on_search"
+
+cpc_gbp_min = 1.10
+cpc_gbp_max = 1.90
+
+ctr_min = 0.035
+ctr_max = 0.075
+
+
+# ---------------------------------------------------------------------------
+# Referral
+# ---------------------------------------------------------------------------
+#
+# Referral can carry incentive/programme cost, but it is not treated as
+# auction-based advertising. Therefore impressions and clicks remain NULL.
+
+[marketing_spend.channels.referral]
+
+spend_type = "indirect"
+base_weekly_spend_gbp = 45.00
+campaign_type = "referral_incentives"
+
+
+# ---------------------------------------------------------------------------
+# Content
+# ---------------------------------------------------------------------------
+#
+# Represents attributable content-production/distribution investment rather
+# than paid-media impressions.
+
+[marketing_spend.channels.content]
+
+spend_type = "indirect"
+base_weekly_spend_gbp = 70.00
+campaign_type = "content_program"

@@ -17,5 +17,6 @@ names = [
     "product_events",
     "subscriptions",
     "experiments",
+    "marketing_spend",
     "corruption",
 ]
