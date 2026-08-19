@@ -1,0 +1,2 @@
+ingestion_batch_id,analytics_build_run_id,trial_count,mature_trial_count,immature_trial_count,mature_trial_paid_conversion_count,trial_to_paid_conversion_rate
+1,1,8663,8619,44,3216,0.37312913331012878524

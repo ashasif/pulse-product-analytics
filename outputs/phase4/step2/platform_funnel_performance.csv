@@ -1,0 +1,3 @@
+ingestion_batch_id,analytics_build_run_id,platform,installation_count,installations_with_signup,install_to_signup_rate
+1,1,android,53055,32478,0.61215719536330223353
+1,1,ios,46945,29698,0.63261263180317392694

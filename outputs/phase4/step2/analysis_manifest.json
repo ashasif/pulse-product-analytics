@@ -1,0 +1,45 @@
+{
+  "phase": 4,
+  "step": 2,
+  "analysis": "growth_funnel_acquisition",
+  "synthetic_data": true,
+  "ingestion_batch_id": 1,
+  "analytics_build_run_id": 1,
+  "observation_cutoff_at": "2026-07-01T00:59:36+01:00",
+  "metric_contracts": [
+    "installation_count",
+    "signup_count",
+    "install_to_signup_rate",
+    "onboarding_start_rate",
+    "onboarding_completion_rate",
+    "trial_start_count",
+    "paid_subscription_start_count",
+    "marketing_spend_gbp",
+    "marketing_ctr",
+    "marketing_cpc_gbp",
+    "cost_per_install_gbp"
+  ],
+  "source_schema": "reporting",
+  "datasets": {
+    "monthly_growth": {
+      "file": "monthly_growth.csv",
+      "row_count": 30
+    },
+    "funnel_summary": {
+      "file": "funnel_summary.csv",
+      "row_count": 1
+    },
+    "acquisition_channel_performance": {
+      "file": "acquisition_channel_performance.csv",
+      "row_count": 5
+    },
+    "platform_funnel_performance": {
+      "file": "platform_funnel_performance.csv",
+      "row_count": 2
+    },
+    "country_funnel_performance": {
+      "file": "country_funnel_performance.csv",
+      "row_count": 9
+    }
+  }
+}

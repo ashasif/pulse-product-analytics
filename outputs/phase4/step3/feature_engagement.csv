@@ -1,0 +1,6 @@
+ingestion_batch_id,analytics_build_run_id,feature_name,feature_use_event_count,feature_use_event_share
+1,1,ai_assistant,739182,0.31950548061200275425
+1,1,smart_tasks,555552,0.24013288846990234357
+1,1,document_summarizer,370994,0.16035917578373032597
+1,1,ai_notes,346684,0.14985137360013036418
+1,1,focus_session,301107,0.13015108153423421204

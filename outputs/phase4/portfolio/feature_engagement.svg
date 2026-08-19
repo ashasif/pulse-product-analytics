@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="bold">Share of feature-use events</text>
+<text x="178" y="122.0" text-anchor="end" font-family="Arial, sans-serif" font-size="14">ai_assistant</text>
+<rect x="190" y="95.5" width="640.0" height="42.9" fill="#4f6f8f"/>
+<text x="838.0" y="122.0" font-family="Arial, sans-serif" font-size="13">31.95%</text>
+<text x="178" y="196.0" text-anchor="end" font-family="Arial, sans-serif" font-size="14">smart_tasks</text>
+<rect x="190" y="169.5" width="481.0" height="42.9" fill="#4f6f8f"/>
+<text x="679.0" y="196.0" font-family="Arial, sans-serif" font-size="13">24.01%</text>
+<text x="178" y="270.0" text-anchor="end" font-family="Arial, sans-serif" font-size="14">document_summarizer</text>
+<rect x="190" y="243.5" width="321.2" height="42.9" fill="#4f6f8f"/>
+<text x="519.2" y="270.0" font-family="Arial, sans-serif" font-size="13">16.04%</text>
+<text x="178" y="344.0" text-anchor="end" font-family="Arial, sans-serif" font-size="14">ai_notes</text>
+<rect x="190" y="317.5" width="300.2" height="42.9" fill="#4f6f8f"/>
+<text x="498.2" y="344.0" font-family="Arial, sans-serif" font-size="13">14.99%</text>
+<text x="178" y="418.0" text-anchor="end" font-family="Arial, sans-serif" font-size="14">focus_session</text>
+<rect x="190" y="391.5" width="260.7" height="42.9" fill="#4f6f8f"/>
+<text x="458.7" y="418.0" font-family="Arial, sans-serif" font-size="13">13.02%</text>
+</svg>

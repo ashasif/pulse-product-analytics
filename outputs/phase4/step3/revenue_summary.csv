@@ -1,0 +1,2 @@
+ingestion_batch_id,analytics_build_run_id,payment_attempt_count,successful_payment_count,failed_payment_count,payment_failure_rate,successful_payment_revenue_gbp,renewal_attempt_count,successful_renewal_count,failed_renewal_count,renewal_success_rate,renewal_revenue_gbp
+1,1,9350,8913,437,0.04673796791443850267,176562.87,5970,5697,273,0.95427135678391959799,76755.03

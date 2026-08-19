@@ -1,0 +1,60 @@
+{
+  "phase": 4,
+  "step": 3,
+  "analysis": "engagement_monetisation_retention",
+  "synthetic_data": true,
+  "ingestion_batch_id": 1,
+  "analytics_build_run_id": 1,
+  "observation_cutoff_at": "2026-07-01T00:59:36+01:00",
+  "metric_contracts": [
+    "registered_dau",
+    "session_count",
+    "feature_use_event_count",
+    "paywall_view_count",
+    "trial_start_count",
+    "paid_subscription_start_count",
+    "trial_to_paid_conversion_rate",
+    "successful_payment_revenue_gbp",
+    "payment_failure_rate",
+    "renewal_success_rate",
+    "paid_retention_d30",
+    "paid_retention_d90",
+    "paid_retention_d180",
+    "paid_retention_d365"
+  ],
+  "source_schema": "reporting",
+  "datasets": {
+    "monthly_engagement": {
+      "file": "monthly_engagement.csv",
+      "row_count": 30
+    },
+    "feature_engagement": {
+      "file": "feature_engagement.csv",
+      "row_count": 5
+    },
+    "revenue_summary": {
+      "file": "revenue_summary.csv",
+      "row_count": 1
+    },
+    "monthly_revenue": {
+      "file": "monthly_revenue.csv",
+      "row_count": 30
+    },
+    "trial_conversion_summary": {
+      "file": "trial_conversion_summary.csv",
+      "row_count": 1
+    },
+    "retention_summary": {
+      "file": "retention_summary.csv",
+      "row_count": 1
+    },
+    "retention_by_billing_period": {
+      "file": "retention_by_billing_period.csv",
+      "row_count": 2
+    },
+    "retention_by_acquisition_channel": {
+      "file": "retention_by_acquisition_channel.csv",
+      "row_count": 5
+    }
+  }
+}

@@ -1,0 +1,3 @@
+ingestion_batch_id,analytics_build_run_id,billing_period,paid_subscription_count,eligible_d30_count,retained_d30_count,paid_retention_d30,eligible_d90_count,retained_d90_count,paid_retention_d90,eligible_d180_count,retained_d180_count,paid_retention_d180,eligible_d365_count,retained_d365_count,paid_retention_d365
+1,1,annual,696,672,672,1.00000000000000000000,625,625,1.00000000000000000000,516,516,1.00000000000000000000,332,90,0.27108433734939759036
+1,1,monthly,2520,2436,1605,0.65886699507389162562,2182,821,0.37626031164069660862,1839,377,0.20500271886895051659,1178,57,0.04838709677419354839

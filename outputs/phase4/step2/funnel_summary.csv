@@ -1,0 +1,2 @@
+ingestion_batch_id,analytics_build_run_id,installation_count,installations_with_signup,install_to_signup_rate,registered_user_count,onboarding_started_user_count,onboarding_completed_user_count,onboarding_start_rate,onboarding_completion_rate
+1,1,100000,62176,0.62176000000000000000,62176,55220,43056,0.88812403499742665980,0.69248584662892434380

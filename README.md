@@ -71,8 +71,16 @@ Dataset snapshot:
 
 ## Status
 
-Repository and environment setup is currently in progress.
+Phase 1 ? Project Design: **COMPLETE & APPROVED**
 
-Phase 1 — Project Design: **Approved**
+Phase 2 ? Synthetic Data Engine: **COMPLETE & FORMALLY CLOSED**
 
-Implementation has not yet started.
+Phase 3 ? Data Ingestion, Validation & Warehouse Layer: **COMPLETE & FORMALLY CLOSED**
+
+Phase 4 ? Business Analytics & Decision Intelligence: **COMPLETE & FORMALLY CLOSED**
+
+The current production analytical snapshot is built from 3,703,681 synthetic source rows and is consumed through the validated PostgreSQL `reporting` semantic layer.
+
+Phase 4 provides reproducible business analysis across acquisition, funnel performance, engagement, subscription monetisation, maturity-controlled retention and descriptive experiment outcomes.
+
+All experiment interpretation remains descriptive; no statistical-significance or causal-inference claims are made.

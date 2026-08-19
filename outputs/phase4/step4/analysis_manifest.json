@@ -1,0 +1,38 @@
+{
+  "phase": 4,
+  "step": 4,
+  "analysis": "descriptive_experiments_and_business_synthesis",
+  "synthetic_data": true,
+  "experiment_interpretation": "descriptive_only",
+  "ingestion_batch_id": 1,
+  "analytics_build_run_id": 1,
+  "observation_cutoff_at": "2026-07-01T00:59:36+01:00",
+  "metric_contracts": [
+    "experiment_exposure_rate",
+    "onboarding_completion_48h",
+    "overall_feature_use_7d",
+    "trial_start_conversion_7d",
+    "paid_conversion_14d",
+    "revenue_per_assigned_user_30d",
+    "cancellation_or_expiry_30d"
+  ],
+  "source_schema": "reporting",
+  "prior_phase4_steps": [
+    2,
+    3
+  ],
+  "datasets": {
+    "experiment_variant_summary": {
+      "file": "experiment_variant_summary.csv",
+      "row_count": 6
+    },
+    "experiment_maturity_summary": {
+      "file": "experiment_maturity_summary.csv",
+      "row_count": 6
+    },
+    "experiment_descriptive_comparisons": {
+      "file": "experiment_descriptive_comparisons.csv",
+      "row_count": 3
+    }
+  }
+}

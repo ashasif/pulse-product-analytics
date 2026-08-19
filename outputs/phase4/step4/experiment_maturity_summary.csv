@@ -1,0 +1,7 @@
+ingestion_batch_id,analytics_build_run_id,experiment_key,experiment_id,experiment_name,variant,assigned_user_count,exposed_user_count,mature_analysis_window_count,mature_analysis_window_rate
+1,1,1,exp_ai_discovery_2025q4,AI Assistant Discovery Experiment,control,4482,4482,4482,1.00000000000000000000
+1,1,1,exp_ai_discovery_2025q4,AI Assistant Discovery Experiment,treatment,6856,6856,6856,1.00000000000000000000
+1,1,2,exp_onboarding_guidance_2025q1,Onboarding Guidance Experiment,control,3001,2648,3001,1.00000000000000000000
+1,1,2,exp_onboarding_guidance_2025q1,Onboarding Guidance Experiment,treatment,2962,2630,2962,1.00000000000000000000
+1,1,3,exp_paywall_redesign_2024q3,Paywall Redesign Experiment,control,1341,1341,1341,1.00000000000000000000
+1,1,3,exp_paywall_redesign_2024q3,Paywall Redesign Experiment,treatment,1364,1364,1364,1.00000000000000000000

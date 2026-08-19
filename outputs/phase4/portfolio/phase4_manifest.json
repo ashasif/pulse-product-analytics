@@ -1,0 +1,30 @@
+{
+  "phase": 4,
+  "status": "complete",
+  "synthetic_data": true,
+  "source_schema": "reporting",
+  "ingestion_batch_id": 1,
+  "analytics_build_run_id": 1,
+  "observation_cutoff_at": "2026-07-01T00:59:36+01:00",
+  "experiment_interpretation": "descriptive_only",
+  "phase4_steps": {
+    "1": "analysis_foundation",
+    "2": "growth_funnel_acquisition",
+    "3": "engagement_monetisation_retention",
+    "4": "descriptive_experiments_business_synthesis",
+    "5": "portfolio_evidence_validation_closure"
+  },
+  "portfolio_files": [
+    "acquisition_channel_performance.svg",
+    "paid_retention_curve.svg",
+    "feature_engagement.svg",
+    "experiment_observed_differences.svg",
+    "phase4_portfolio_summary.md"
+  ],
+  "closure": {
+    "full_regression_test_count": 425,
+    "source_schema": "reporting",
+    "phase3_protected_areas_unchanged": true,
+    "experiment_interpretation": "descriptive_only"
+  }
+}

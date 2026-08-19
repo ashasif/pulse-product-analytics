@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="500" viewBox="0 0 900 500">
+<rect width="100%" height="100%" fill="white"/>
+<text x="40" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="bold">Maturity-controlled paid retention</text>
+<line x1="80" y1="430" x2="840" y2="430" stroke="#555"/>
+<line x1="80" y1="80" x2="80" y2="430" stroke="#555"/>
+<polyline fill="none" stroke="#4f6f8f" stroke-width="3" points="80.0,80.0 333.3,183.9 586.7,248.8 840.0,383.5"/>
+<circle cx="80.0" cy="80.0" r="5" fill="#4f6f8f"/>
+<text x="80.0" y="68.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">73.26%</text>
+<text x="80.0" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">D30</text>
+<circle cx="333.3" cy="183.9" r="5" fill="#4f6f8f"/>
+<text x="333.3" y="171.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">51.51%</text>
+<text x="333.3" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">D90</text>
+<circle cx="586.7" cy="248.8" r="5" fill="#4f6f8f"/>
+<text x="586.7" y="236.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">37.92%</text>
+<text x="586.7" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">D180</text>
+<circle cx="840.0" cy="383.5" r="5" fill="#4f6f8f"/>
+<text x="840.0" y="371.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="13">9.74%</text>
+<text x="840.0" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">D365</text>
+</svg>
