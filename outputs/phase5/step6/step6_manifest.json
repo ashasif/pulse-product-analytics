@@ -1,0 +1,16 @@
+{
+  "phase": 5,
+  "step": 6,
+  "synthetic_data": true,
+  "context": {
+    "ingestion_batch_id": 1,
+    "analytics_build_run_id": 1,
+    "observation_cutoff_at": "2026-07-01T00:59:36+01:00"
+  },
+  "files": [
+    "multiplicity_and_sensitivity.json",
+    "multiplicity_and_sensitivity.md"
+  ],
+  "observed_power_calculated": false,
+  "target_power": 0.8
+}

@@ -1,0 +1,17 @@
+{
+  "phase": 5,
+  "step": 5,
+  "synthetic_data": true,
+  "context": {
+    "ingestion_batch_id": 1,
+    "analytics_build_run_id": 1,
+    "observation_cutoff_at": "2026-07-01T00:59:36+01:00"
+  },
+  "experiment_id": "exp_paywall_redesign_2024q3",
+  "metric_key": "revenue_per_assigned_user_30d",
+  "method": "bootstrap_ci_plus_randomization_permutation_test",
+  "files": [
+    "live_continuous_inference.json",
+    "live_continuous_inference.md"
+  ]
+}

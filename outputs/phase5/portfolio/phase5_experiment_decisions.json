@@ -1,0 +1,204 @@
+{
+  "synthetic_data": true,
+  "phase": 5,
+  "step": 7,
+  "status": "ready_for_formal_closure",
+  "analysis_type": "randomized_experiment_statistical_inference_synthesis",
+  "context": {
+    "ingestion_batch_id": 1,
+    "analytics_build_run_id": 1,
+    "observation_cutoff_at": "2026-07-01T00:59:36+01:00"
+  },
+  "experiment_count": 3,
+  "completed_inference_result_count": 6,
+  "statistically_detectable_result_count": 0,
+  "decisions": [
+    {
+      "experiment_id": "exp_ai_discovery_2025q4",
+      "experiment_name": "AI Assistant Discovery Experiment",
+      "configured_metric_count": 4,
+      "completed_inference_metric_count": 1,
+      "excluded_metric_count": 3,
+      "primary_metric": "ai_assistant_use_7d",
+      "primary_contract_status": "deferred",
+      "primary_inference_status": "excluded_deferred",
+      "decision_status": "not_decision_ready_primary_metric_unavailable",
+      "decision": "Do not make a treatment rollout decision from Phase 5. The configured primary metric is not currently available as a supported canonical inferential outcome.",
+      "completed_metrics": [
+        "overall_feature_use_7d"
+      ],
+      "excluded_metrics": [
+        {
+          "metric_role": "primary",
+          "metric_key": "ai_assistant_use_7d",
+          "reason": "excluded_deferred"
+        },
+        {
+          "metric_role": "secondary",
+          "metric_key": "return_session_7d",
+          "reason": "excluded_deferred"
+        },
+        {
+          "metric_role": "commercial",
+          "metric_key": "trial_start_conversion_14d",
+          "reason": "excluded_unknown_metric_contract"
+        }
+      ],
+      "evidence": [
+        {
+          "metric_role": "guardrail",
+          "metric_key": "overall_feature_use_7d",
+          "outcome_type": "binary",
+          "effect": 0.0,
+          "effect_unit": "percentage_points",
+          "confidence_interval_low": -0.055999236188675194,
+          "confidence_interval_high": 0.08563518920492452,
+          "raw_p_value": 1.0,
+          "holm_adjusted_p_value": 1.0,
+          "statistically_detectable": false,
+          "mde": null,
+          "mde_unit": "percentage_points"
+        }
+      ]
+    },
+    {
+      "experiment_id": "exp_onboarding_guidance_2025q1",
+      "experiment_name": "Onboarding Guidance Experiment",
+      "configured_metric_count": 4,
+      "completed_inference_metric_count": 1,
+      "excluded_metric_count": 3,
+      "primary_metric": "onboarding_completion_48h",
+      "primary_contract_status": "supported",
+      "primary_inference_status": "ready_binary",
+      "decision_status": "primary_not_detectable_supporting_metrics_incomplete",
+      "decision": "The canonical primary outcome does not show a statistically detectable treatment-minus-control difference, while one or more configured supporting metrics remain unavailable. Do not interpret this as proof of no treatment effect.",
+      "completed_metrics": [
+        "onboarding_completion_48h"
+      ],
+      "excluded_metrics": [
+        {
+          "metric_role": "secondary",
+          "metric_key": "activation_48h",
+          "reason": "excluded_deferred"
+        },
+        {
+          "metric_role": "commercial",
+          "metric_key": "trial_start_conversion_14d",
+          "reason": "excluded_unknown_metric_contract"
+        },
+        {
+          "metric_role": "guardrail",
+          "metric_key": "d7_return_rate",
+          "reason": "excluded_deferred"
+        }
+      ],
+      "evidence": [
+        {
+          "metric_role": "primary",
+          "metric_key": "onboarding_completion_48h",
+          "outcome_type": "binary",
+          "effect": -0.009044925605483645,
+          "effect_unit": "percentage_points",
+          "confidence_interval_low": -2.365603299448946,
+          "confidence_interval_high": 2.346866175586746,
+          "raw_p_value": 0.9939996005788543,
+          "holm_adjusted_p_value": null,
+          "statistically_detectable": false,
+          "mde": 3.369363483347025,
+          "mde_unit": "percentage_points"
+        }
+      ]
+    },
+    {
+      "experiment_id": "exp_paywall_redesign_2024q3",
+      "experiment_name": "Paywall Redesign Experiment",
+      "configured_metric_count": 4,
+      "completed_inference_metric_count": 4,
+      "excluded_metric_count": 0,
+      "primary_metric": "trial_start_conversion_7d",
+      "primary_contract_status": "supported",
+      "primary_inference_status": "ready_binary",
+      "decision_status": "no_detectable_effect_in_completed_metric_family",
+      "decision": "The completed canonical primary and supportive outcome family provides no statistically detectable evidence supporting treatment rollout. This does not prove exact equivalence between treatment and control.",
+      "completed_metrics": [
+        "trial_start_conversion_7d",
+        "paid_conversion_14d",
+        "revenue_per_assigned_user_30d",
+        "cancellation_or_expiry_30d"
+      ],
+      "excluded_metrics": [],
+      "evidence": [
+        {
+          "metric_role": "primary",
+          "metric_key": "trial_start_conversion_7d",
+          "outcome_type": "binary",
+          "effect": -1.3671571746912718,
+          "effect_unit": "percentage_points",
+          "confidence_interval_low": -4.355937383070146,
+          "confidence_interval_high": 1.6207707484347058,
+          "raw_p_value": 0.36973540921878784,
+          "holm_adjusted_p_value": null,
+          "statistically_detectable": false,
+          "mde": 4.326270342117382,
+          "mde_unit": "percentage_points"
+        },
+        {
+          "metric_role": "secondary",
+          "metric_key": "paid_conversion_14d",
+          "outcome_type": "binary",
+          "effect": -0.061231496607119795,
+          "effect_unit": "percentage_points",
+          "confidence_interval_low": -2.113339761769268,
+          "confidence_interval_high": 1.9862564605258057,
+          "raw_p_value": 0.9530592004087016,
+          "holm_adjusted_p_value": 1.0,
+          "statistically_detectable": false,
+          "mde": 2.9193528449433863,
+          "mde_unit": "percentage_points"
+        },
+        {
+          "metric_role": "commercial",
+          "metric_key": "revenue_per_assigned_user_30d",
+          "outcome_type": "continuous",
+          "effect": 0.277420196771788,
+          "effect_unit": "GBP_per_assigned_user",
+          "confidence_interval_low": -0.8992506765533667,
+          "confidence_interval_high": 1.440963305248851,
+          "raw_p_value": 0.6445355464453555,
+          "holm_adjusted_p_value": 1.0,
+          "statistically_detectable": false,
+          "mde": 1.6470595485530006,
+          "mde_unit": "GBP_per_assigned_user"
+        },
+        {
+          "metric_role": "guardrail",
+          "metric_key": "cancellation_or_expiry_30d",
+          "outcome_type": "binary",
+          "effect": -0.9188551459605787,
+          "effect_unit": "percentage_points",
+          "confidence_interval_low": -3.6082808908525705,
+          "confidence_interval_high": 1.767121352952102,
+          "raw_p_value": 0.5021963578790419,
+          "holm_adjusted_p_value": 1.0,
+          "statistically_detectable": false,
+          "mde": 3.884799963944654,
+          "mde_unit": "percentage_points"
+        }
+      ]
+    }
+  ],
+  "methodology_summary": {
+    "primary_population": "assigned_mature",
+    "binary_effect_direction": "treatment_minus_control",
+    "binary_confidence_interval": "newcombe_wilson",
+    "binary_hypothesis_test": "two_proportion_z_test",
+    "continuous_estimand": "treatment_minus_control_mean",
+    "continuous_confidence_interval": "nonparametric_percentile_bootstrap",
+    "continuous_hypothesis_test": "randomization_permutation_test",
+    "supportive_multiplicity": "holm_within_completed_experiment_family",
+    "design_sensitivity": "approximate_minimum_detectable_effect",
+    "retrospective_observed_power": false,
+    "causal_scope": "randomized_assigned_mature_contrast_only"
+  },
+  "headline": "No completed canonical Pulse experiment outcome produced a statistically detectable treatment-minus-control difference at the current production snapshot. Several configured metrics remain deferred or non-canonical, so absence of detectability must not be interpreted as proof of zero effect."
+}

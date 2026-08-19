@@ -1,0 +1,17 @@
+{
+  "phase": 5,
+  "step": 4,
+  "synthetic_data": true,
+  "context": {
+    "ingestion_batch_id": 1,
+    "analytics_build_run_id": 1,
+    "observation_cutoff_at": "2026-07-01T00:59:36+01:00"
+  },
+  "files": [
+    "live_binary_inference.json",
+    "live_binary_inference.md"
+  ],
+  "binary_result_count": 5,
+  "metric_plan_count": 12,
+  "multiplicity_status": "pending_complete_experiment_family"
+}

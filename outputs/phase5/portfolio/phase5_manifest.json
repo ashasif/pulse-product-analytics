@@ -1,0 +1,22 @@
+{
+  "phase": 5,
+  "status": "ready_for_formal_closure",
+  "synthetic_data": true,
+  "context": {
+    "ingestion_batch_id": 1,
+    "analytics_build_run_id": 1,
+    "observation_cutoff_at": "2026-07-01T00:59:36+01:00"
+  },
+  "experiment_count": 3,
+  "completed_inference_result_count": 6,
+  "statistically_detectable_result_count": 0,
+  "files": [
+    "phase5_portfolio_summary.md",
+    "phase5_experiment_decisions.json",
+    "binary_effects_forest.svg"
+  ],
+  "documentation": [
+    "docs\\phase5-analysis-summary.md",
+    "docs/phase5-experimentation-inference-contract.md"
+  ]
+}
