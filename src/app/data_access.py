@@ -1,4 +1,4 @@
-"""Read-only data-access helpers for the Pulse Streamlit application."""
+"""Read-only data access for the Pulse Streamlit application."""
 
 from __future__ import annotations
 
@@ -12,7 +12,12 @@ from src.analysis.reporting_client import (
     get_metric_contracts,
     get_reporting_context,
 )
+from src.app.queries import APP_QUERY_REGISTRY
 from src.ingestion.database import DatabaseConfig
+
+
+class DashboardQueryError(ValueError):
+    """Raised when the dashboard requests an unknown query contract."""
 
 
 def fetch_reporting_dataframe(
@@ -21,7 +26,7 @@ def fetch_reporting_dataframe(
     *,
     config: DatabaseConfig | None = None,
 ) -> pd.DataFrame:
-    """Execute one validated reporting-only query and return a DataFrame."""
+    """Execute one validated reporting query and return a DataFrame."""
 
     rows = fetch_reporting_rows(
         sql,
@@ -56,3 +61,28 @@ def load_supported_metric_definitions(
     ]
 
     return pd.DataFrame(rows)
+
+
+def load_named_query(
+    query_name: str,
+    *,
+    analytics_build_run_id: int,
+    config: DatabaseConfig | None = None,
+) -> pd.DataFrame:
+    """Execute one approved dashboard query against a fixed build."""
+
+    try:
+        sql = APP_QUERY_REGISTRY[query_name]
+    except KeyError as exc:
+        raise DashboardQueryError(
+            f"Unknown dashboard query: {query_name}"
+        ) from exc
+
+    return fetch_reporting_dataframe(
+        sql,
+        {
+            "analytics_build_run_id":
+                analytics_build_run_id,
+        },
+        config=config,
+    )
