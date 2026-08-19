@@ -48,19 +48,33 @@ def load_reporting_context(
     )
 
 
+def load_metric_definitions(
+    *,
+    config: DatabaseConfig | None = None,
+) -> pd.DataFrame:
+    """Load the complete canonical metric registry."""
+
+    return pd.DataFrame(
+        get_metric_contracts(config=config)
+    )
+
+
 def load_supported_metric_definitions(
     *,
     config: DatabaseConfig | None = None,
 ) -> pd.DataFrame:
     """Load supported canonical metric definitions only."""
 
-    rows = [
-        row
-        for row in get_metric_contracts(config=config)
-        if row["support_status"] == "supported"
-    ]
+    frame = load_metric_definitions(
+        config=config
+    )
 
-    return pd.DataFrame(rows)
+    if frame.empty:
+        return frame
+
+    return frame[
+        frame["support_status"] == "supported"
+    ].reset_index(drop=True)
 
 
 def load_named_query(

@@ -10,7 +10,9 @@ from src.app.components import (
     render_lineage,
     render_synthetic_notice,
 )
-from src.app.data_access import load_reporting_context
+from src.app.data_access import (
+    load_reporting_context,
+)
 from src.app.evidence import (
     EvidenceIntegrityError,
     load_portfolio_evidence,
@@ -19,6 +21,7 @@ from src.app.pages import (
     acquisition,
     engagement,
     experiments,
+    methodology,
     overview,
     predictive,
     retention,
@@ -33,15 +36,23 @@ BUSINESS_PAGE_REGISTRY: dict[str, Callable] = {
 }
 
 
+METHODOLOGY_PAGE_REGISTRY: dict[str, Callable] = {
+    "Methodology & Contracts":
+        methodology.render,
+}
+
+
 FROZEN_PAGE_REGISTRY: dict[str, Callable] = {
     "Experiments": experiments.render,
-    "Predictive Decision Support": predictive.render,
+    "Predictive Decision Support":
+        predictive.render,
 }
 
 
 PAGE_NAMES = [
     *BUSINESS_PAGE_REGISTRY,
     *FROZEN_PAGE_REGISTRY,
+    *METHODOLOGY_PAGE_REGISTRY,
 ]
 
 
@@ -95,7 +106,7 @@ def main() -> None:
     st.sidebar.divider()
 
     selected_page = st.sidebar.radio(
-        "Business view",
+        "Application view",
         PAGE_NAMES,
     )
 
@@ -105,10 +116,15 @@ def main() -> None:
                 selected_page
             ](context)
 
-        else:
+        elif selected_page in FROZEN_PAGE_REGISTRY:
             FROZEN_PAGE_REGISTRY[
                 selected_page
             ](evidence)
+
+        else:
+            METHODOLOGY_PAGE_REGISTRY[
+                selected_page
+            ](context)
 
     except Exception as exc:
         st.error(

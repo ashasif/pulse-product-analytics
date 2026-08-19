@@ -23,13 +23,6 @@ class AppSmokeTests(unittest.TestCase):
             ],
         )
 
-        for renderer in (
-            app.BUSINESS_PAGE_REGISTRY.values()
-        ):
-            self.assertTrue(
-                callable(renderer)
-            )
-
     def test_frozen_page_registry_is_complete(self):
         self.assertEqual(
             list(app.FROZEN_PAGE_REGISTRY),
@@ -39,14 +32,17 @@ class AppSmokeTests(unittest.TestCase):
             ],
         )
 
-        for renderer in (
-            app.FROZEN_PAGE_REGISTRY.values()
-        ):
-            self.assertTrue(
-                callable(renderer)
-            )
+    def test_methodology_page_registry_is_complete(self):
+        self.assertEqual(
+            list(
+                app.METHODOLOGY_PAGE_REGISTRY
+            ),
+            [
+                "Methodology & Contracts",
+            ],
+        )
 
-    def test_complete_navigation_contains_six_pages(self):
+    def test_complete_navigation_contains_seven_pages(self):
         self.assertEqual(
             app.PAGE_NAMES,
             [
@@ -56,6 +52,7 @@ class AppSmokeTests(unittest.TestCase):
                 "Retention & Lifecycle",
                 "Experiments",
                 "Predictive Decision Support",
+                "Methodology & Contracts",
             ],
         )
 

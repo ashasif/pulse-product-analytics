@@ -60,3 +60,6 @@ data/quarantine/*
 *.log
 *.tmp
 *.temp
+
+# Local Streamlit secrets
+.streamlit/secrets.toml
