@@ -1,2 +1,4 @@
 psycopg[binary]==3.3.4
 scikit-learn==1.9.0
+streamlit==1.61.1
+pandas==3.0.5
