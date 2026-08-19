@@ -1,4 +1,4 @@
-﻿# Pulse — Product Analytics & Subscription Intelligence Platform
+# Pulse — Product Analytics & Subscription Intelligence Platform
 
 An end-to-end portfolio project simulating the product analytics environment of a fictional consumer AI productivity application.
 
@@ -78,6 +78,10 @@ Phase 2 ? Synthetic Data Engine: **COMPLETE & FORMALLY CLOSED**
 Phase 3 ? Data Ingestion, Validation & Warehouse Layer: **COMPLETE & FORMALLY CLOSED**
 
 Phase 4 ? Business Analytics & Decision Intelligence: **COMPLETE & FORMALLY CLOSED**
+
+Phase 5 ? Experimentation & Statistical Inference: **COMPLETE & FORMALLY CLOSED**
+
+Phase 6 ? Predictive Modelling & Decision Support: **COMPLETE & FORMALLY CLOSED**
 
 The current production analytical snapshot is built from 3,703,681 synthetic source rows and is consumed through the validated PostgreSQL `reporting` semantic layer.
 

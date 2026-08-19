@@ -229,3 +229,36 @@ Targeting lift does not establish intervention effectiveness.
 
 The final holdout is frozen and must not be used for additional tuning,
 feature selection or model-family selection.
+
+## Formal closure
+
+Phase 6 ? Predictive Modelling & Decision Support is **COMPLETE & FORMALLY CLOSED**.
+
+Final closure evidence:
+
+- locked behavioural logistic model retained
+- calibration policy: uncalibrated
+- development population: 6,411 trials
+- locked final test: 1,991 trials from January through May 2026
+- June 2026 boundary sensitivity population: 201 trials
+- behavioural final-test Brier score: 0.232913
+- behavioural final-test log loss: 0.658714
+- behavioural final-test ROC-AUC: 0.548994
+- behavioural final-test average precision: 0.424815
+- behavioural-minus-static Brier delta: -0.002218
+- behavioural-minus-static log-loss delta: -0.004940
+- paired Brier 95% bootstrap interval: [-0.004362, -0.000143]
+- paired log-loss 95% bootstrap interval: [-0.009389, -0.000540]
+- final-test probability-quality improvement confirmed under the predeclared rule
+- frozen final-results SHA-256:
+  `ec1eadb21395b8dfda95399766e1993781c95b9621d8c6d500c9a0a1f429737e`
+- final regression baseline: 544 tests passed
+- raw source snapshot unchanged
+
+The final holdout is open and frozen.
+
+No further model-family selection, predictor selection, calibration selection or
+hyperparameter tuning may use the final-test or June-2026 boundary results.
+
+Phase 6 must not be reopened unless a genuine implementation or analytical
+defect is identified.

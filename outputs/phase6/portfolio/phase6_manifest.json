@@ -1,0 +1,94 @@
+{
+  "phase": 6,
+  "phase_name": "Predictive Modelling & Decision Support",
+  "status": "COMPLETE & FORMALLY CLOSED",
+  "locked_use_case": "Mid-Trial Paid-Conversion Risk Prediction",
+  "prediction_point": "48 hours before seven-day trial end",
+  "selected_model": "behavioural_logistic",
+  "calibration": "uncalibrated",
+  "predictor_count": 16,
+  "population": {
+    "strict_modelling_population": 8603,
+    "development_rows": 6411,
+    "final_test_rows": 1991,
+    "june_2026_boundary_rows": 201
+  },
+  "validation": {
+    "behavioural_logistic": {
+      "brier_score": 0.233099,
+      "log_loss": 0.658924,
+      "roc_auc": 0.563282,
+      "average_precision": 0.445289
+    }
+  },
+  "final_test": {
+    "prevalence": {
+      "brier_score": 0.234303,
+      "log_loss": 0.661416,
+      "roc_auc": 0.5,
+      "average_precision": 0.374686
+    },
+    "static_logistic": {
+      "brier_score": 0.235131,
+      "log_loss": 0.663654,
+      "roc_auc": 0.522154,
+      "average_precision": 0.396435
+    },
+    "behavioural_logistic": {
+      "brier_score": 0.232913,
+      "log_loss": 0.658714,
+      "roc_auc": 0.548994,
+      "average_precision": 0.424815
+    },
+    "behavioural_minus_static": {
+      "brier_delta": -0.002218,
+      "log_loss_delta": -0.00494,
+      "brier_95pct_bootstrap_ci": [
+        -0.004362,
+        -0.000143
+      ],
+      "log_loss_95pct_bootstrap_ci": [
+        -0.009389,
+        -0.00054
+      ]
+    },
+    "probability_quality_improvement_confirmed": true
+  },
+  "decision_utility": {
+    "10_percent_capacity": {
+      "targeted_rows": 200,
+      "non_conversions_captured": 137,
+      "capture_rate": 0.11,
+      "lift_vs_population": 1.0954
+    },
+    "20_percent_capacity": {
+      "targeted_rows": 399,
+      "non_conversions_captured": 273,
+      "capture_rate": 0.2193,
+      "lift_vs_population": 1.0942
+    }
+  },
+  "frozen_results": {
+    "path": "docs/phase6-final-holdout-results.md",
+    "sha256": "ec1eadb21395b8dfda95399766e1993781c95b9621d8c6d500c9a0a1f429737e",
+    "status": "OPEN AND FROZEN"
+  },
+  "regression_test_count": 544,
+  "raw_data_modified": false,
+  "constraints": [
+    "synthetic customer behaviour",
+    "predictive ranking is not causal evidence",
+    "targeting lift does not estimate intervention effectiveness",
+    "final-test results cannot be used for further model tuning",
+    "June 2026 is boundary sensitivity only"
+  ],
+  "artifacts": [
+    "docs/phase6-predictive-modelling-contract.md",
+    "docs/phase6-temporal-split-baseline-contract.md",
+    "docs/phase6-model-development-contract.md",
+    "docs/phase6-calibration-decision-robustness-contract.md",
+    "docs/phase6-final-holdout-contract.md",
+    "docs/phase6-final-holdout-results.md",
+    "docs/phase6-predictive-modelling-summary.md"
+  ]
+}
