@@ -1,4 +1,4 @@
-﻿# Phase 5 — Experimentation & Statistical Inference Contract
+# Phase 5 — Experimentation & Statistical Inference Contract
 
 Status: COMPLETE & CLOSED
 
