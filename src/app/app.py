@@ -18,12 +18,14 @@ from src.app.evidence import (
 from src.app.pages import (
     acquisition,
     engagement,
+    experiments,
     overview,
+    predictive,
     retention,
 )
 
 
-PAGE_REGISTRY: dict[str, Callable] = {
+BUSINESS_PAGE_REGISTRY: dict[str, Callable] = {
     "Executive Overview": overview.render,
     "Growth & Acquisition": acquisition.render,
     "Engagement & Monetisation": engagement.render,
@@ -31,8 +33,20 @@ PAGE_REGISTRY: dict[str, Callable] = {
 }
 
 
+FROZEN_PAGE_REGISTRY: dict[str, Callable] = {
+    "Experiments": experiments.render,
+    "Predictive Decision Support": predictive.render,
+}
+
+
+PAGE_NAMES = [
+    *BUSINESS_PAGE_REGISTRY,
+    *FROZEN_PAGE_REGISTRY,
+]
+
+
 def main() -> None:
-    """Render the Pulse business analytics application."""
+    """Render the Pulse analytics and decision-support application."""
 
     st.set_page_config(
         page_title="Pulse Product Analytics",
@@ -48,10 +62,11 @@ def main() -> None:
 
     try:
         evidence = load_portfolio_evidence()
-        del evidence
+
         st.sidebar.success(
             "Frozen Phase 5/6 evidence integrity verified."
         )
+
     except EvidenceIntegrityError as exc:
         st.sidebar.error(
             "Frozen analytical evidence failed integrity verification."
@@ -61,15 +76,18 @@ def main() -> None:
 
     try:
         context = load_reporting_context()
+
     except Exception as exc:
         st.error(
             "The live PostgreSQL reporting layer is unavailable. "
             "Configure the PULSE_DB_* environment variables and ensure "
             "the read-only reporting database is reachable."
         )
+
         st.caption(
             f"Connection error type: {type(exc).__name__}"
         )
+
         return
 
     render_lineage(context)
@@ -78,20 +96,27 @@ def main() -> None:
 
     selected_page = st.sidebar.radio(
         "Business view",
-        list(PAGE_REGISTRY),
+        PAGE_NAMES,
     )
 
-    renderer = PAGE_REGISTRY[selected_page]
-
     try:
-        renderer(context)
+        if selected_page in BUSINESS_PAGE_REGISTRY:
+            BUSINESS_PAGE_REGISTRY[
+                selected_page
+            ](context)
+
+        else:
+            FROZEN_PAGE_REGISTRY[
+                selected_page
+            ](evidence)
+
     except Exception as exc:
         st.error(
-            "The selected business view could not be loaded from "
-            "the canonical reporting layer."
+            "The selected application view could not be rendered."
         )
+
         st.caption(
-            f"Dashboard error type: {type(exc).__name__}"
+            f"Application error type: {type(exc).__name__}"
         )
 
 
