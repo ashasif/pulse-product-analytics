@@ -130,5 +130,4 @@ Closure evidence:
 - frozen Phase 6 final-holdout SHA-256: verified unchanged;
 - `.streamlit/secrets.toml`: ignored and untracked.
 
-Phase 7 remains open only for the separate formal Phase 7 project-level
-closure step.
+Phase 7 — Productisation & Delivery is formally complete and closed. Steps 1 through 5 are protected and must not be reopened unless a genuine defect is found.

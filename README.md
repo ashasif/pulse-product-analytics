@@ -83,7 +83,7 @@ Phase 5 ? Experimentation & Statistical Inference: **COMPLETE & FORMALLY CLOSED*
 
 Phase 6 ? Predictive Modelling & Decision Support: **COMPLETE & FORMALLY CLOSED**
 
-Phase 7 — Productisation & Delivery: **IN PROGRESS**
+Phase 7 — Productisation & Delivery: **COMPLETE & FORMALLY CLOSED**
 
 Phase 7 Step 5 — UX, Portfolio Documentation & Public Deployment: **COMPLETE & CLOSED — PUBLIC DEPLOYMENT SUCCESSFUL — SEVEN-PAGE PUBLIC QA 7/7 PASS**
 

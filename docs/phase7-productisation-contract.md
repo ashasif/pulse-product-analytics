@@ -112,3 +112,33 @@ A deployed application should use a dedicated PostgreSQL LOGIN role inheriting
 the read-only `pulse_reporting_reader` group role.
 
 Secrets must not be committed to the repository.
+
+## Formal Phase 7 closure
+
+Phase 7 — Productisation & Delivery is:
+
+**COMPLETE & FORMALLY CLOSED**
+
+Closed delivery steps:
+
+1. Productisation & Delivery Architecture Inspection — COMPLETE & CLOSED
+2. Application Foundation, Evidence Integrity & Configuration Hardening — COMPLETE & CLOSED
+3. Canonical Business KPI Dashboard — COMPLETE & CLOSED
+4. Experimentation & Predictive Decision Support — COMPLETE & CLOSED
+5. UX, Portfolio Documentation & Public Deployment — COMPLETE & CLOSED
+
+Final delivery evidence:
+
+- public Streamlit deployment: successful;
+- anonymous public browser access: verified;
+- seven-page public QA: 7/7 PASS;
+- Step 5 targeted tests: 27/27 PASS;
+- full regression baseline at Step 5 closure: 581/581 PASS;
+- repository UTF-8/mojibake verification: PASS;
+- immutable `data/raw/` snapshot: unchanged;
+- Phase 6 frozen final-holdout SHA-256: unchanged;
+- application secrets remain excluded from version control.
+
+The analytical and data contracts established in Phases 1 through 6 remain
+protected. Phase 7 Steps 1 through 5 must not be reopened unless a genuine
+defect is identified.
