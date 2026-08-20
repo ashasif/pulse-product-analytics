@@ -83,8 +83,38 @@ Phase 5 ? Experimentation & Statistical Inference: **COMPLETE & FORMALLY CLOSED*
 
 Phase 6 ? Predictive Modelling & Decision Support: **COMPLETE & FORMALLY CLOSED**
 
+Phase 7 — Productisation & Delivery: **IN PROGRESS**
+
+Phase 7 Step 5 — UX, Portfolio Documentation & Public Deployment: **COMPLETE & CLOSED — PUBLIC DEPLOYMENT SUCCESSFUL — SEVEN-PAGE PUBLIC QA 7/7 PASS**
+
 The current production analytical snapshot is built from 3,703,681 synthetic source rows and is consumed through the validated PostgreSQL `reporting` semantic layer.
 
 Phase 4 provides reproducible business analysis across acquisition, funnel performance, engagement, subscription monetisation, maturity-controlled retention and descriptive experiment outcomes.
 
-All experiment interpretation remains descriptive; no statistical-significance or causal-inference claims are made.
+Phase 5 provides frozen randomized-experiment inference under its approved statistical contract. The public application presents those frozen results without rerunning inference and does not treat non-detectable effects as evidence of no effect.
+
+## Public Application
+
+Phase 7 Step 5 deploys the portfolio application publicly through:
+
+**GitHub -> Streamlit Community Cloud -> Neon PostgreSQL**
+
+Public application:
+
+`https://pulse-appuct-analytics-zbqpxugy9bvxpxkcstwm4t.streamlit.app/`
+
+Public QA status:
+
+**7/7 application pages passed public visual QA**
+
+The deployed application preserves the analytical contracts established in
+earlier phases:
+
+- live business KPIs consume canonical PostgreSQL `reporting.*`;
+- ingestion lineage remains batch 1;
+- analytics lineage remains build 1;
+- all Pulse customer behaviour is synthetic;
+- Phase 5 randomized-experiment inference is presented from frozen evidence;
+- Phase 6 final-test evidence remains open and frozen;
+- predictive ranking is not causal evidence;
+- successful billed collection is not accounting-recognised or net revenue.

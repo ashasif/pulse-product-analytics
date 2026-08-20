@@ -70,3 +70,65 @@ Pulse uses synthetic customer behaviour.
 Predictive ranking is not causal evidence.
 
 Targeting lift does not estimate intervention effectiveness.
+
+## Public deployment verification
+
+Public deployment status:
+
+**SUCCESSFUL**
+
+Public application:
+
+`https://pulse-appuct-analytics-zbqpxugy9bvxpxkcstwm4t.streamlit.app/`
+
+Deployment architecture:
+
+`GitHub -> Streamlit Community Cloud -> Neon PostgreSQL`
+
+Seven-page public QA:
+
+**7/7 PASS**
+
+Validated public views:
+
+1. Executive Overview
+2. Growth & Acquisition
+3. Engagement & Monetisation
+4. Retention & Lifecycle
+5. Experiments
+6. Predictive Decision Support
+7. Methodology & Contracts
+
+Public QA confirmed:
+
+- synthetic-data disclosure remains visible;
+- ingestion lineage remains batch 1;
+- analytics lineage remains build 1;
+- the canonical observation cutoff renders correctly;
+- live business KPIs remain sourced from `reporting.*`;
+- Phase 5 inference remains frozen and is not rerun by the dashboard;
+- Phase 6 final-test evidence remains frozen and is not used for further tuning;
+- predictive ranking is not presented as causal evidence;
+- successful billed collection is not presented as accounting-recognised or net revenue;
+- the canonical metric registry and analytical boundaries render publicly.
+
+## Phase 7 Step 5 closure
+
+Phase 7 Step 5 ? UX, Portfolio Documentation & Public Deployment is:
+
+**COMPLETE & CLOSED**
+
+Closure evidence:
+
+- public Streamlit deployment: successful;
+- anonymous browser access: verified without authentication;
+- seven-page public QA: 7/7 PASS;
+- targeted Step 5 tests: 27/27 PASS;
+- full regression: 581/581 PASS;
+- repository UTF-8/mojibake diagnostic: PASS;
+- protected `data/raw/` snapshot: unchanged;
+- frozen Phase 6 final-holdout SHA-256: verified unchanged;
+- `.streamlit/secrets.toml`: ignored and untracked.
+
+Phase 7 remains open only for the separate formal Phase 7 project-level
+closure step.

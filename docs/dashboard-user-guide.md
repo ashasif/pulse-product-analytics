@@ -5,6 +5,10 @@
 Pulse is a synthetic product analytics and subscription intelligence
 portfolio application.
 
+Public application:
+
+`https://pulse-appuct-analytics-zbqpxugy9bvxpxkcstwm4t.streamlit.app/`
+
 The dashboard demonstrates an end-to-end workflow spanning data engineering,
 semantic modelling, business analytics, randomized experimentation and
 predictive decision support.
