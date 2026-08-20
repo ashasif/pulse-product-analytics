@@ -2,6 +2,8 @@
 
 An end-to-end portfolio project simulating the product analytics environment of a fictional consumer AI productivity application.
 
+### [Open the Live Pulse Dashboard ?](https://pulse-appuct-analytics-zbqpxugy9bvxpxkcstwm4t.streamlit.app/)
+
 > **Important:** Pulse and all datasets used in this repository are synthetic and created solely for portfolio and learning purposes.
 
 ## Product
@@ -101,7 +103,7 @@ Phase 7 Step 5 deploys the portfolio application publicly through:
 
 Public application:
 
-`https://pulse-appuct-analytics-zbqpxugy9bvxpxkcstwm4t.streamlit.app/`
+**[Launch the live Streamlit application](https://pulse-appuct-analytics-zbqpxugy9bvxpxkcstwm4t.streamlit.app/)**
 
 Public QA status:
 
